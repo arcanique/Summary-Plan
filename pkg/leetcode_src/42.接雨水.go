@@ -6,43 +6,73 @@
 
 // @lc code=start
 func trap(height []int) int {
-	ret := 0
+    ans := 0
+    w := len(height)
+    if w < 3 {
+        return ans
+    }
 
-	for idx := 1; idx < len(height)-1; idx++ {
-		value := height[idx]
-		maxLeft, maxRight := 0, 0
-		for i := idx; i >= 0; i-- {
-			maxLeft = max(maxLeft, height[i])
-		}
+    left, right := 0, w-1
+    leftMax, rightMax := height[left], height[right]
 
-		for i := idx; i < len(height); i++ {
-			maxRight = max(maxRight, height[i])
-		}
+    for left < right {
+        if height[left] < height[right]{
+            if height[left] < leftMax {
+                ans += (leftMax - height[left])
+            } else {
+                leftMax = height[left]
+            }
+            left++
+        } else {
+            if height[right] < rightMax {
+                ans += (rightMax - height[right])
+            } else {
+                rightMax = height[right]
+            }
+            right--
+        }
+    }
 
-		if value == maxLeft || value == maxRight {
-			continue
-		}
-
-		ret += (min(maxLeft, maxRight) - height[idx])
-	}
-
-	return ret
+    return ans
 }
+// func trap(height []int) int {
+// 	ret := 0
 
-func max(a, b int) int {
-	if a >= b {
-		return a
-	}
+// 	for idx := 1; idx < len(height)-1; idx++ {
+// 		value := height[idx]
+// 		maxLeft, maxRight := 0, 0
+// 		for i := idx; i >= 0; i-- {
+// 			maxLeft = max(maxLeft, height[i])
+// 		}
 
-	return b
-}
+// 		for i := idx; i < len(height); i++ {
+// 			maxRight = max(maxRight, height[i])
+// 		}
 
-func min(a, b int) int {
-	if a <= b {
-		return a
-	}
+// 		if value == maxLeft || value == maxRight {
+// 			continue
+// 		}
 
-	return b
-}
+// 		ret += (min(maxLeft, maxRight) - height[idx])
+// 	}
+
+// 	return ret
+// }
+
+// func max(a, b int) int {
+// 	if a >= b {
+// 		return a
+// 	}
+
+// 	return b
+// }
+
+// func min(a, b int) int {
+// 	if a <= b {
+// 		return a
+// 	}
+
+// 	return b
+// }
 
 // @lc code=end

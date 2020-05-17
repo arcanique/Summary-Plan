@@ -1,7 +1,11 @@
 package main
 
 import (
+	"sort"
 	"fmt"
+	
+
+
 )
 
 const INT_MAX = ^int(^uint(0) >> 1)
@@ -12,6 +16,7 @@ func largestRectangleArea(heights []int) int {
 		data:   make([]int, 0),
 		length: 0,
 	}
+
 
 	s.push(-1)
 
@@ -70,9 +75,10 @@ func main() {
 	maxArea := INT_MAX
 	input := []int{1, 9, 6, 6, 5, 2, 6, 6, 6, 6, 3, 4, 8, 9, 1, 2, 6, 6, 6, 6, 6, 3, 9, 6, 6, 1, 5, 9, 6, 6, 6, 6, 6, 6, 6, 6}
 	input2 := []int{2, 1}
-	ret := mergeSort(input)
-	fmt.Println(input2, ret, maxArea)
-
+	input3 := []int{-1,0,1,2,-1,-4}
+	ret := mergeSort2(input3)
+	fmt.Println(input2, ret, maxArea, input3)
+	sort.Ints(input)
 	area := largestRectangleArea(input)
 
 	matrix := [][]int{{1, 2, 3}, {1, 4, 3}}
@@ -139,7 +145,9 @@ func mergeSort(nums []int) []int {
 func merge(left, right []int) []int {
 	result := make([]int, 0)
 	i, j := 0, 0
-
+	if len(left) == 3 && len(right) == 3 {
+		fmt.Println(1)
+	}
 	for i < len(left) && j < len(right) {
 		if left[i] < right[j] {
 			result = append(result, left[i])
@@ -161,4 +169,44 @@ func merge(left, right []int) []int {
 	}
 
 	return result
+}
+
+func mergeSort2(nums []int) []int {
+    w := len(nums)
+    if w < 2 {
+        return nums
+    }
+    mid := w>>1
+    left := nums[:mid]
+    right := nums[mid:]
+
+    return merge2(mergeSort(left),mergeSort(right))
+}
+
+func merge2(left,right []int) []int {
+    i, j := 0, 0
+    lw,rw := len(left), len(right)
+	ret := []int{}
+	if len(left) == 3 && len(right) == 3 {
+		fmt.Println(1)
+	}
+    for i < lw && j < rw {
+        if left[i] <= right[j] {
+            ret = append(ret, left[i])
+            i++
+        } else {
+            ret = append(ret,right[j])
+            j++
+        }
+    }
+
+    for ;i<lw;i++ {
+        ret = append(ret, left[i])
+    }
+
+    for ;j<rw; j++ {
+        ret = append(ret, right[j])
+    }
+    fmt.Println(left, right, ret)
+    return ret
 }

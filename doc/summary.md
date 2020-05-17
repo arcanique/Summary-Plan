@@ -224,8 +224,15 @@ https://zhuanlan.zhihu.com/p/84693975
 
 # <font color=blue>数据结构与算法</font>
 ## 二叉树
+
+## 堆
+
 ## <font color=red>map</font>
 ## 二分法
 ## 排序算法
 ## 限流算法
 ## 红黑树
+
+## 动态规划
+## 贪心算法
+## 分治思想
